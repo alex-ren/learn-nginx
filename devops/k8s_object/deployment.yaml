@@ -1,0 +1,27 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: alexr-nginx-server
+spec:
+  selector:
+    matchLabels:
+      app: alexr-nginx
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: alexr-nginx
+    spec:
+      securityContext:
+        fsGroup: 101
+        runAsUser: 101
+        runAsGroup: 101
+      containers:
+      - name: nginx
+        image: alex2ren/mynginx_simple_server
+        ports:
+        - name: http
+          containerPort: 8021
+
+
+
