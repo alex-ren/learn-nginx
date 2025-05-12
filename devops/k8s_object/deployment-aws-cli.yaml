@@ -1,0 +1,24 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: alexr-aws-cli
+spec:
+  selector:
+    matchLabels:
+      app: alexr-aws-cli
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: alexr-aws-cli
+    spec:
+      serviceAccountName: s3-ro-access-sa
+      containers:
+      - name: awscli
+        image: amazon/aws-cli
+        command:
+          - sleep
+          - "3600"
+        imagePullPolicy: IfNotPresent
+
+
