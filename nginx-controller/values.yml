@@ -1,0 +1,78 @@
+controller:
+  service:
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-name: apps-ingress
+      service.beta.kubernetes.io/aws-load-balancer-type: external
+      service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: http
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /healthz
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: 10254
+
+
+
+# C02CF96TMD6R:nginx-controller alexr$ kubectl get -n kube-system service/ingress-nginx-controller -o yaml
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   annotations:
+#     meta.helm.sh/release-name: ingress-nginx
+#     meta.helm.sh/release-namespace: kube-system
+#     service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /healthz
+#     service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "10254"
+#     service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: http
+#     service.beta.kubernetes.io/aws-load-balancer-name: apps-ingress
+#     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+#     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+#     service.beta.kubernetes.io/aws-load-balancer-type: external
+#   creationTimestamp: "2025-05-23T20:34:32Z"
+#   finalizers:
+#   - service.eks.amazonaws.com/resources
+#   labels:
+#     app.kubernetes.io/component: controller
+#     app.kubernetes.io/instance: ingress-nginx
+#     app.kubernetes.io/managed-by: Helm
+#     app.kubernetes.io/name: ingress-nginx
+#     app.kubernetes.io/part-of: ingress-nginx
+#     app.kubernetes.io/version: 1.11.3
+#     helm.sh/chart: ingress-nginx-4.11.3
+#   name: ingress-nginx-controller
+#   namespace: kube-system
+#   resourceVersion: "4326348"
+#   uid: a95a2196-f4be-4850-a9db-d1a6ea8dc05c
+# spec:
+#   allocateLoadBalancerNodePorts: true
+#   clusterIP: 172.20.107.30
+#   clusterIPs:
+#   - 172.20.107.30
+#   externalTrafficPolicy: Cluster
+#   internalTrafficPolicy: Cluster
+#   ipFamilies:
+#   - IPv4
+#   ipFamilyPolicy: SingleStack
+#   loadBalancerClass: eks.amazonaws.com/nlb
+#   ports:
+#   - appProtocol: http
+#     name: http
+#     nodePort: 30534
+#     port: 80
+#     protocol: TCP
+#     targetPort: http
+#   - appProtocol: https
+#     name: https
+#     nodePort: 31233
+#     port: 443
+#     protocol: TCP
+#     targetPort: https
+#   selector:
+#     app.kubernetes.io/component: controller
+#     app.kubernetes.io/instance: ingress-nginx
+#     app.kubernetes.io/name: ingress-nginx
+#   sessionAffinity: None
+#   type: LoadBalancer
+# status:
+#   loadBalancer:
+#     ingress:
+#     - hostname: apps-ingress-f44a98231e4d2d6d.elb.us-west-2.amazonaws.com
+#

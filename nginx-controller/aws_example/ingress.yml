@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ${NS}-ingress
+  namespace: ${NS}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  defaultBackend:
+    service:
+      name: error
+      port:
+        name: svc-port
+  rules:
+    - host: a.example.com
+      http:
+        paths:
+          - path: /first/(.*)/foo
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: first
+                port:
+                  name: svc-port
+    - host: b.example.com
+      http:
+        paths:
+          - path: /second
+            pathType: Prefix
+            backend:
+              service:
+                name: second
+                port:
+                  name: svc-port
