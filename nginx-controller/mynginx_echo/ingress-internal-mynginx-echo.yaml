@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mynginx-echo-internal
+spec:
+  ingressClassName: nginx-internal
+  defaultBackend:
+    service:
+      name: alexr-nginx-service-echo
+      port:
+        name: http
+  rules:
+    - host: myinternalnginx.example.com
+      http:
+        paths:
+          - path: /third
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: alexr-nginx-service-echo
+                port:
+                  name: http

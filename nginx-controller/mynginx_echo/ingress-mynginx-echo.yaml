@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: mynginx-echo
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   defaultBackend:
@@ -22,8 +22,8 @@ spec:
                 name: alexr-nginx-service-echo
                 port:
                   name: http
-          - path: /second
-            pathType: Prefix
+          - path: /second(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: alexr-nginx-service-echo
